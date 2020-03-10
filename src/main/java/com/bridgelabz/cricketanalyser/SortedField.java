@@ -1,5 +1,5 @@
 package com.bridgelabz.cricketanalyser;
 
 public enum SortedField {
-    BATTINGAVG,STRIKINGRATE
+    BATTINGAVG, MAXIMUMHIT, STRIKINGRATE
 }

@@ -32,4 +32,11 @@ public class CricketLeagueAnalyserTest
         Assert.assertEquals("Ishant Sharma", mostRunCsv[0].player);
     }
 
+    @Test
+    public void givenPlayerData_WhenMaximum6sAnd4s_ShouldReturnPlayer() throws CricketAnalyserException, IOException {
+        String sortedCricketData = cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH,SortedField.MAXIMUMHIT);
+        MostRunCsv[] mostRunCsv = new Gson().fromJson(String.valueOf(sortedCricketData), MostRunCsv[].class);
+        Assert.assertEquals("Andre Russell", mostRunCsv[0].player);
+    }
+
 }

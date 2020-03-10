@@ -5,5 +5,7 @@ public class IPLDTO extends MostRunCsv {
         player=mostRunCsv.player;
         battingAvg=mostRunCsv.battingAvg;
         strikingRate=mostRunCsv.strikingRate;
+        sixes=mostRunCsv.sixes;
+        fours=mostRunCsv.fours;
     }
 }
