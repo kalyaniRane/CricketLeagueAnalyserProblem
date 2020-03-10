@@ -41,8 +41,16 @@ public class CricketLeagueAnalyserTest
 
     @Test
     public void givenPlayerData_WhenMaximum6sAnd4sWithStrikeRate_ShouldReturnPlayer() throws CricketAnalyserException, IOException {
-        String sortedCricketData = cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH,SortedField.MAXIMUMHIT);
+        String sortedCricketData = cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH,SortedField.STRIKERATE6S4S);
         MostRunCsv[] mostRunCsv = new Gson().fromJson(String.valueOf(sortedCricketData), MostRunCsv[].class);
         Assert.assertEquals("Andre Russell", mostRunCsv[0].player);
     }
+
+    @Test
+    public void givenPlayerData_WhenGreatAvgWithStrikeRate_ShouldReturnPlayer() throws CricketAnalyserException, IOException {
+        String sortedCricketData = cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH,SortedField.AVGWITHSTRIKE);
+        MostRunCsv[] mostRunCsv = new Gson().fromJson(String.valueOf(sortedCricketData), MostRunCsv[].class);
+        Assert.assertEquals("MS Dhoni", mostRunCsv[0].player);
+    }
+
 }
