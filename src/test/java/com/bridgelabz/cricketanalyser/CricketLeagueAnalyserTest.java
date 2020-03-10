@@ -24,4 +24,12 @@ public class CricketLeagueAnalyserTest
         MostRunCsv[] mostRunCsv = new Gson().fromJson(String.valueOf(sortedCricketData), MostRunCsv[].class);
         Assert.assertEquals("MS Dhoni", mostRunCsv[0].player);
     }
+
+    @Test
+    public void givenPlayerData_WhenTopStrikingRate_ShouldReturnPlayer() throws CricketAnalyserException, IOException {
+        String sortedCricketData = cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH,SortedField.STRIKINGRATE);
+        MostRunCsv[] mostRunCsv = new Gson().fromJson(String.valueOf(sortedCricketData), MostRunCsv[].class);
+        Assert.assertEquals("Ishant Sharma", mostRunCsv[0].player);
+    }
+
 }

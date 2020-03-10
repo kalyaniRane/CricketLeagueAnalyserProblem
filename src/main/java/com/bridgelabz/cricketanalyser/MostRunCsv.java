@@ -8,4 +8,8 @@ public class MostRunCsv {
 
     @CsvBindByName(column = "PLAYER",required = true)
     public String player;
+
+    @CsvBindByName(column = "SR",required = true)
+    public double strikingRate;
+
 }

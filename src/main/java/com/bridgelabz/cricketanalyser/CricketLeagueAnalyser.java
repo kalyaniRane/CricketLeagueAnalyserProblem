@@ -22,6 +22,7 @@ public class CricketLeagueAnalyser {
         this.cricketMap=new HashMap<>();
         this.sortMap=new HashMap<>();
         this.sortMap.put(SortedField.BATTINGAVG,Comparator.comparing(cricket->cricket.battingAvg));
+        this.sortMap.put(SortedField.STRIKINGRATE,Comparator.comparing(cricket->cricket.strikingRate));
     }
 
     public String loadCricketData(String csvFilePath,SortedField sortedField) throws CricketAnalyserException, IOException {
