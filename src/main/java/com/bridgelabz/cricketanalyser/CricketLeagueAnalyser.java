@@ -22,10 +22,8 @@ public class CricketLeagueAnalyser {
 
     List<IPLDTO> cricketCSVList=null;
     Map<SortedField, Comparator <IPLDTO>> sortMap= null;
-    Map<String, IPLDTO> cricketMap=null;
 
     public CricketLeagueAnalyser() {
-        this.cricketMap=new HashMap<>();
         this.sortMap=new HashMap<>();
         this.sortMap.put(SortedField.BATTINGAVG,Comparator.comparing(cricket->cricket.battingAvg));
         this.sortMap.put(SortedField.STRIKINGRATE,Comparator.comparing(cricket->cricket.strikingRate));
@@ -38,15 +36,17 @@ public class CricketLeagueAnalyser {
         this.sortMap.put(SortedField.BOWLINGAVG,Comparator.comparing(cricket->cricket.bowlingAvg));
         this.sortMap.put(SortedField.STRIKINGRATE,Comparator.comparing(cricket->cricket.strikingRate));
         this.sortMap.put(SortedField.ECONOMYRATE,Comparator.comparing(cricket->cricket.economyRate));
+        Comparator<IPLDTO> fourFiveWkt = Comparator.comparing(cricket->cricket.fiveWkt+cricket.fourWkt);
+        this.sortMap.put(SortedField.STRIKERATE4W5W,fourFiveWkt.thenComparing(cricket -> cricket.strikingRate));
     }
 
-    public String loadData(CricketData data,String csvFilePath,SortedField sortedField) throws CricketAnalyserException, IOException {
+    public String loadData(CricketData data,String csvFilePath,SortedField sortedField) throws CricketAnalyserException{
 
-        cricketMap=new CricketLeagueAnalyserFactory().getCricketAdapter(data,csvFilePath);
-        if (cricketMap == null || cricketMap.size() == 0) {
+        cricketCSVList=new CricketLeagueAnalyserFactory().getCricketAdapter(data,csvFilePath);
+        if (cricketCSVList == null || cricketCSVList.size() == 0) {
             throw new CricketAnalyserException("no data", CricketAnalyserException.ExceptionType.CRICKET_DATA_NOT_FOUND);
         }
-        cricketCSVList = cricketMap.values().stream().collect(Collectors.toList());
+
         List sortedList=sortList(sortedField, cricketCSVList);
         String sortedStateCensus = new Gson().toJson(sortedList);
         return sortedStateCensus;

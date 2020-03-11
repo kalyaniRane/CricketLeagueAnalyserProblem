@@ -9,6 +9,8 @@ public class IPLDTO {
     public int runs;
     public double bowlingAvg;
     public double economyRate;
+    public int fourWkt;
+    public int fiveWkt;
 
     public IPLDTO(MostRunCsv mostRunCsv) {
         player = mostRunCsv.player;
@@ -24,5 +26,7 @@ public class IPLDTO {
         bowlingAvg = mostWktsCsv.bowlingAvg;
         strikingRate = mostWktsCsv.strikingRate;
         economyRate=mostWktsCsv.economyRate;
+        fourWkt=mostWktsCsv.fourWkt;
+        fiveWkt=mostWktsCsv.fiveWkt;
     }
 }

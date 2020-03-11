@@ -16,4 +16,10 @@ public class MostWktsCsv {
     @CsvBindByName(column = "Econ",required = true)
     public double economyRate;
 
+    @CsvBindByName(column = "4w",required = true)
+    public int fourWkt;
+
+    @CsvBindByName(column = "5w",required = true)
+    public int fiveWkt;
+
 }

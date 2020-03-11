@@ -62,7 +62,7 @@ public class CricketLeagueAnalyserTest
     }
 
     @Test
-    public void givenPlayerData_WhenMaximumWithBestBowlingAverage_ShouldReturnPlayer() throws IOException, CricketAnalyserException {
+    public void givenPlayerData_WhenBestBowlingAverage_ShouldReturnPlayer() throws IOException, CricketAnalyserException {
         String sortedCricketData = cricketLeagueAnalyser.loadData(CricketLeagueAnalyser.CricketData.WKT,IPL_MOST_WKTS_FILE_PATH,SortedField.BOWLINGAVG);
         MostWktsCsv[] mostWktsCsv = new Gson().fromJson(String.valueOf(sortedCricketData), MostWktsCsv[].class);
         Assert.assertEquals("Krishnappa Gowtham", mostWktsCsv[0].player);
@@ -80,6 +80,13 @@ public class CricketLeagueAnalyserTest
         String sortedCricketData = cricketLeagueAnalyser.loadData(CricketLeagueAnalyser.CricketData.WKT,IPL_MOST_WKTS_FILE_PATH,SortedField.ECONOMYRATE);
         MostWktsCsv[] mostWktsCsv = new Gson().fromJson(String.valueOf(sortedCricketData), MostWktsCsv[].class);
         Assert.assertEquals("Ben Cutting", mostWktsCsv[0].player);
+    }
+
+    @Test
+    public void givenPlayerData_WhenTopStrikeRateWith4w5w_ShouldReturnPlayer() throws IOException, CricketAnalyserException {
+        String sortedCricketData = cricketLeagueAnalyser.loadData(CricketLeagueAnalyser.CricketData.WKT,IPL_MOST_WKTS_FILE_PATH,SortedField.STRIKERATE4W5W);
+        MostWktsCsv[] mostWktsCsv = new Gson().fromJson(String.valueOf(sortedCricketData), MostWktsCsv[].class);
+        Assert.assertEquals("Lasith Malinga", mostWktsCsv[0].player);
     }
 
 }

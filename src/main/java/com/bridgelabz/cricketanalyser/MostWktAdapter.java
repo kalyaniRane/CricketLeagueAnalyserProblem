@@ -1,15 +1,16 @@
 package com.bridgelabz.cricketanalyser;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class MostWktAdapter extends CricketLeagueAnalyserAdapter{
-    public Map<String, IPLDTO> cricketMap;
+    public List<IPLDTO> cricketList;
 
-    public <E> Map<String, IPLDTO> loadData(String csvFilePath, Class<E> cricketClass) throws IOException {
+    public <E> List<IPLDTO> loadData(String csvFilePath, Class<E> cricketClass){
 
-        cricketMap = super.loadCricketData(csvFilePath,cricketClass);
-        return cricketMap;
+        cricketList = super.loadCricketData(csvFilePath,cricketClass);
+        return cricketList;
 
     }
 }
