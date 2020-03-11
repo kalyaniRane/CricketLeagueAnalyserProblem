@@ -11,6 +11,7 @@ public class IPLDTO {
     public double economyRate;
     public int fourWkt;
     public int fiveWkt;
+    public int maxWkts;
 
     public IPLDTO(MostRunCsv mostRunCsv) {
         player = mostRunCsv.player;
@@ -28,5 +29,6 @@ public class IPLDTO {
         economyRate=mostWktsCsv.economyRate;
         fourWkt=mostWktsCsv.fourWkt;
         fiveWkt=mostWktsCsv.fiveWkt;
+        maxWkts=mostWktsCsv.maxWkts;
     }
 }

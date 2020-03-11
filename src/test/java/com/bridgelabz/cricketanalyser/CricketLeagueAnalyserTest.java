@@ -89,4 +89,12 @@ public class CricketLeagueAnalyserTest
         Assert.assertEquals("Lasith Malinga", mostWktsCsv[0].player);
     }
 
+    @Test
+    public void givenPlayerData_WhenBestBowlingAvgWithStrikeRate_ShouldReturnPlayer() throws IOException, CricketAnalyserException {
+        String sortedCricketData = cricketLeagueAnalyser.loadData(CricketLeagueAnalyser.CricketData.WKT,IPL_MOST_WKTS_FILE_PATH,SortedField.BOWLINGAVGWITHSTRIKERATE);
+        MostWktsCsv[] mostWktsCsv = new Gson().fromJson(String.valueOf(sortedCricketData), MostWktsCsv[].class);
+        Assert.assertEquals("Krishnappa Gowtham", mostWktsCsv[0].player);
+    }
+
+
 }

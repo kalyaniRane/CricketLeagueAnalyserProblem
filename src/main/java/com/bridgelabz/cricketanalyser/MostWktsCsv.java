@@ -22,4 +22,8 @@ public class MostWktsCsv {
     @CsvBindByName(column = "5w",required = true)
     public int fiveWkt;
 
+    @CsvBindByName(column = "Wkts",required = true)
+    public int maxWkts;
+
+
 }
