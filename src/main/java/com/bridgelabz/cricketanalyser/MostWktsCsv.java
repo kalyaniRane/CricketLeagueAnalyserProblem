@@ -9,4 +9,8 @@ public class MostWktsCsv {
 
     @CsvBindByName(column = "Avg",required = true)
     public double bowlingAvg;
+
+    @CsvBindByName(column = "SR",required = true)
+    public double strikingRate;
+
 }

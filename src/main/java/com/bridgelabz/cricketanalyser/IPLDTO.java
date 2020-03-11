@@ -21,5 +21,6 @@ public class IPLDTO {
     public IPLDTO(MostWktsCsv mostWktsCsv) {
         player = mostWktsCsv.player;
         bowlingAvg = mostWktsCsv.bowlingAvg;
+        strikingRate = mostWktsCsv.strikingRate;
     }
 }
