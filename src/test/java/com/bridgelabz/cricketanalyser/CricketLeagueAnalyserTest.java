@@ -96,5 +96,11 @@ public class CricketLeagueAnalyserTest
         Assert.assertEquals("Krishnappa Gowtham", mostWktsCsv[0].player);
     }
 
+    @Test
+    public void givenPlayerData_WhenMaximumWktsWithBestBowlingAvg_ShouldReturnPlayer() throws IOException, CricketAnalyserException {
+        String sortedCricketData = cricketLeagueAnalyser.loadData(CricketLeagueAnalyser.CricketData.WKT,IPL_MOST_WKTS_FILE_PATH,SortedField.MAXWKTSWITHBOWLINGAVG);
+        MostWktsCsv[] mostWktsCsv = new Gson().fromJson(String.valueOf(sortedCricketData), MostWktsCsv[].class);
+        Assert.assertEquals("Imran Tahir", mostWktsCsv[0].player);
+    }
 
 }

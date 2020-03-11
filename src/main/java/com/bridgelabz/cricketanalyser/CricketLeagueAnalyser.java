@@ -40,7 +40,8 @@ public class CricketLeagueAnalyser {
         this.sortMap.put(SortedField.STRIKERATE4W5W,fourFiveWkt.thenComparing(cricket -> cricket.strikingRate));
         Comparator<IPLDTO> bowlingAvg = Comparator.comparing(cricket -> cricket.bowlingAvg);
         this.sortMap.put(SortedField.BOWLINGAVGWITHSTRIKERATE,bowlingAvg.thenComparing(cricket -> cricket.strikingRate));
-
+        Comparator<IPLDTO> maxWkts = Comparator.comparing(cricket -> cricket.maxWkts);
+        this.sortMap.put(SortedField.MAXWKTSWITHBOWLINGAVG,maxWkts.thenComparing(cricket -> cricket.bowlingAvg));
     }
 
     public String loadData(CricketData data,String csvFilePath,SortedField sortedField) throws CricketAnalyserException{
