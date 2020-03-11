@@ -14,6 +14,12 @@ import java.util.stream.StreamSupport;
 
 public class CricketLeagueAnalyser {
 
+
+    private CricketData data;
+
+    public enum CricketData {RUN,WKT}
+
+
     List<IPLDTO> cricketCSVList=null;
     Map<SortedField, Comparator <IPLDTO>> sortMap= null;
     Map<String, IPLDTO> cricketMap=null;
@@ -32,21 +38,9 @@ public class CricketLeagueAnalyser {
         this.sortMap.put(SortedField.BOWLINGAVG,Comparator.comparing(cricket->cricket.bowlingAvg));
     }
 
-    public String loadRunData(String csvFilePath,SortedField sortedField) throws CricketAnalyserException, IOException {
+    public String loadData(CricketData data,String csvFilePath,SortedField sortedField) throws CricketAnalyserException, IOException {
 
-        cricketMap=new CricketLeagueLoader().loadCricketData(csvFilePath,MostRunCsv.class);
-        if (cricketMap == null || cricketMap.size() == 0) {
-            throw new CricketAnalyserException("no data", CricketAnalyserException.ExceptionType.CRICKET_DATA_NOT_FOUND);
-        }
-        cricketCSVList = cricketMap.values().stream().collect(Collectors.toList());
-        List sortedList=sortList(sortedField, cricketCSVList);
-        String sortedStateCensus = new Gson().toJson(sortedList);
-        return sortedStateCensus;
-    }
-
-    public String loadWktData(String csvFilePath,SortedField sortedField) throws CricketAnalyserException, IOException {
-
-        cricketMap=new CricketLeagueLoader().loadCricketData(csvFilePath,MostWktsCsv.class);
+        cricketMap=new CricketLeagueAnalyserFactory().getCricketAdapter(data,csvFilePath);
         if (cricketMap == null || cricketMap.size() == 0) {
             throw new CricketAnalyserException("no data", CricketAnalyserException.ExceptionType.CRICKET_DATA_NOT_FOUND);
         }
