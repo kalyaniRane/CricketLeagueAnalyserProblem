@@ -1,12 +1,25 @@
 package com.bridgelabz.cricketanalyser;
 
-public class IPLDTO extends MostRunCsv {
+public class IPLDTO {
+    public String player;
+    public double battingAvg;
+    public double strikingRate;
+    public int sixes;
+    public int fours;
+    public int runs;
+    public double bowlingAvg;
+
     public IPLDTO(MostRunCsv mostRunCsv) {
-        player=mostRunCsv.player;
-        battingAvg=mostRunCsv.battingAvg;
-        strikingRate=mostRunCsv.strikingRate;
-        sixes=mostRunCsv.sixes;
-        fours=mostRunCsv.fours;
-        runs=mostRunCsv.runs;
+        player = mostRunCsv.player;
+        battingAvg = mostRunCsv.battingAvg;
+        strikingRate = mostRunCsv.strikingRate;
+        sixes = mostRunCsv.sixes;
+        fours = mostRunCsv.fours;
+        runs = mostRunCsv.runs;
+    }
+
+    public IPLDTO(MostWktsCsv mostWktsCsv) {
+        player = mostWktsCsv.player;
+        bowlingAvg = mostWktsCsv.bowlingAvg;
     }
 }
