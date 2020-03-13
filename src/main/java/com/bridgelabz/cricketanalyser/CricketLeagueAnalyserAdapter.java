@@ -12,7 +12,7 @@ import java.util.stream.StreamSupport;
 
 public class CricketLeagueAnalyserAdapter {
     List<IPLDTO> cricketList = new ArrayList<>();
-    public <E>List<IPLDTO> loadCricketData(String csvFilePath, Class<E> cricketClass){
+    public <E>List<IPLDTO> loadCricketData(Class<E> cricketClass, String csvFilePath){
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<E> CSVStateIterator = csvBuilder.getCSVFileIterator(reader, cricketClass);

@@ -6,12 +6,12 @@ public class IPLDTO {
     public double strikingRate;
     public int sixes;
     public int fours;
-    public int runs;
+    public double runs;
     public double bowlingAvg;
     public double economyRate;
     public int fourWkt;
     public int fiveWkt;
-    public int maxWkts;
+    public double maxWkts;
 
     public IPLDTO(MostRunCsv mostRunCsv) {
         player = mostRunCsv.player;

@@ -23,7 +23,6 @@ public class MostWktsCsv {
     public int fiveWkt;
 
     @CsvBindByName(column = "Wkts",required = true)
-    public int maxWkts;
-
+    public double maxWkts;
 
 }

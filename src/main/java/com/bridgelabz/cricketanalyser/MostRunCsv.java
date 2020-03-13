@@ -19,5 +19,5 @@ public class MostRunCsv {
     public int fours;
 
     @CsvBindByName(column = "Runs",required = true)
-    public int runs;
+    public double runs;
 }

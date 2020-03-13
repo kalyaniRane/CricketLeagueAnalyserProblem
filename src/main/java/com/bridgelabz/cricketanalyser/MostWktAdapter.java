@@ -7,9 +7,9 @@ import java.util.Map;
 public class MostWktAdapter extends CricketLeagueAnalyserAdapter{
     public List<IPLDTO> cricketList;
 
-    public <E> List<IPLDTO> loadData(String csvFilePath, Class<E> cricketClass){
+    public <E> List<IPLDTO> loadData(Class<E> cricketClass, String csvFilePath){
 
-        cricketList = super.loadCricketData(csvFilePath,cricketClass);
+        cricketList = super.loadCricketData(cricketClass,csvFilePath);
         return cricketList;
 
     }
