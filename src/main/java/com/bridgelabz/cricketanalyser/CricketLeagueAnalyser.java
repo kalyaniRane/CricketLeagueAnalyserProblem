@@ -1,35 +1,31 @@
 package com.bridgelabz.cricketanalyser;
 
-import com.bridgelabz.CSVBuilderException;
-import com.bridgelabz.CSVBuilderFactory;
-import com.bridgelabz.ICSVBuilder;
 import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class CricketLeagueAnalyser {
 
 
     private CricketData data;
 
-    public enum CricketData {RUN,WKT}
+    public enum CricketData {
+        RUN,WKT
+    }
 
 
     List<IPLDTO> cricketCSVList=null;
     Map<SortedField, Comparator <IPLDTO>> sortMap= null;
-    Map<String, IPLAllRoundersDTO> mapTest;
+    Map<String, IPLAllRoundersDTO> mapAllRounder;
     Map<SortedField, Comparator<IPLAllRoundersDTO>> sortMapAllRounder;
+
     public CricketLeagueAnalyser() {
         this.sortMap=new HashMap<>();
-        this.mapTest=new HashMap<>();
+        this.mapAllRounder =new HashMap<>();
         this.sortMapAllRounder=new HashMap<>();
-        this.sortMapAllRounder.put(SortedField.AVG, Comparator.comparing(iplData -> iplData.average));
+
+        this.sortMapAllRounder.put(SortedField.BOWLINGAVGWITHBATTINGAVG, Comparator.comparing(iplData -> iplData.average));
         this.sortMap.put(SortedField.BATTINGAVG,Comparator.comparing(cricket->cricket.battingAvg));
         this.sortMap.put(SortedField.STRIKINGRATE,Comparator.comparing(cricket->cricket.strikingRate));
         this.sortMap.put(SortedField.MAXIMUMHIT,Comparator.comparing(cricket->cricket.sixes+cricket.fours));
@@ -47,10 +43,9 @@ public class CricketLeagueAnalyser {
         this.sortMap.put(SortedField.BOWLINGAVGWITHSTRIKERATE,bowlingAvg.thenComparing(cricket -> cricket.strikingRate));
         Comparator<IPLDTO> maxWkts = Comparator.comparing(cricket -> cricket.maxWkts);
         this.sortMap.put(SortedField.MAXWKTSWITHBOWLINGAVG,maxWkts.thenComparing(cricket -> cricket.bowlingAvg));
-        this.sortMap.put(SortedField.BOWLINGAVGWITHBATTINGAVG,Comparator.comparing(IPLDTO -> IPLDTO.bowlingAvg+IPLDTO.battingAvg));
     }
 
-    public String cricketAnalyseData(SortedField sortType, String... csvFilePath) {
+    public String cricketAnalyseData(SortedField sortType, String... csvFilePath) throws CricketAnalyserException {
         List<IPLDTO> batsmanList = new CricketLeagueAnalyserFactory().getCricketAdapter(CricketData.RUN,csvFilePath[0]);
         List<IPLDTO> bowlerList = new CricketLeagueAnalyserFactory().getCricketAdapter(CricketData.WKT,csvFilePath[1]);
 
@@ -58,12 +53,14 @@ public class CricketLeagueAnalyser {
             for (int j = 0; j < bowlerList.size(); j++) {
                 if (batsmanList.get(i).player.equals(bowlerList.get(j).player)) {
                     if (sortType.equals(SortedField.ALLROUNDERAVG))
-                        mapTest.put(batsmanList.get(i).player, new IPLAllRoundersDTO(batsmanList.get(i).player,batsmanList.get(i).battingAvg + bowlerList.get(j).bowlingAvg));
+                        mapAllRounder.put(batsmanList.get(i).player, new IPLAllRoundersDTO(batsmanList.get(i).player,batsmanList.get(i).battingAvg + bowlerList.get(j).bowlingAvg));
+                    if (sortType.equals(SortedField.ALLROUNDER))
+                        mapAllRounder.put(batsmanList.get(i).player, new IPLAllRoundersDTO(batsmanList.get(i).player, batsmanList.get(i).runs * bowlerList.get(j).maxWkts));
                 }
             }
         }
-        List<IPLAllRoundersDTO> collect = mapTest.values().stream().collect(Collectors.toList());
-        collect.sort(this.sortMapAllRounder.get(SortedField.AVG).reversed());
+        List<IPLAllRoundersDTO> collect = mapAllRounder.values().stream().collect(Collectors.toList());
+        collect.sort(this.sortMapAllRounder.get(SortedField.BOWLINGAVGWITHBATTINGAVG).reversed());
 
         return new Gson().toJson(collect);
     }
