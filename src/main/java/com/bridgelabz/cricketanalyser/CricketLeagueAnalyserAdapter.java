@@ -12,7 +12,7 @@ import java.util.stream.StreamSupport;
 
 public class CricketLeagueAnalyserAdapter {
     List<IPLDTO> cricketList = new ArrayList<>();
-    public <E>List<IPLDTO> loadCricketData(Class<E> cricketClass, String csvFilePath){
+    public <E>List<IPLDTO> loadCricketData(Class<E> cricketClass, String csvFilePath) {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<E> CSVStateIterator = csvBuilder.getCSVFileIterator(reader, cricketClass);
@@ -27,11 +27,11 @@ public class CricketLeagueAnalyserAdapter {
                         .map(MostWktsCsv.class::cast)
                         .forEach(loadData -> cricketList.add(new IPLDTO(loadData)));
             }
-
             return cricketList;
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CricketAnalyserException(e.getMessage(),CricketAnalyserException.ExceptionType.FILE_NOT_FOUND);
+        }catch (RuntimeException e){
+            throw new CricketAnalyserException("Class Not Found",CricketAnalyserException.ExceptionType.CLASS_NOT_FOUND);
         }
-        return cricketList;
     }
 }

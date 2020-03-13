@@ -1,10 +1,8 @@
 package com.bridgelabz.cricketanalyser;
 
-import com.bridgelabz.CSVBuilderException;
-
-public class CricketAnalyserException extends Throwable {
+public class CricketAnalyserException extends RuntimeException {
         enum ExceptionType {
-            CRICKET_FILE_PROBLEM, CRICKET_DATA_NOT_FOUND,UNABLE_TO_PARSE;
+            DATA_NOT_FOUND, FILE_NOT_FOUND,CLASS_NOT_FOUND
         }
 
         ExceptionType type;
